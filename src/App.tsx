@@ -1,10 +1,13 @@
 import './App.css'
-import {Button} from './components/ui/button'
+import { ThemeContext } from './context/ThemeContext';
+import Home from './components/Home';
+import { useThemeValue } from './hooks/useThemeValue';
 function App() {
+  const theme=useThemeValue()
   return (
-    <>
-      <Button variant="link">Click me</Button>
-    </>
+    <ThemeContext.Provider value={theme}>
+      <Home/>
+    </ThemeContext.Provider>
   )
 }
 
