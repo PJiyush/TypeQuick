@@ -1,0 +1,12 @@
+.correct{
+    color: green;
+}
+
+.incorrect{
+    color: red;
+}
+
+.focus{
+    font-weight: bolder;
+    color: white;
+}
