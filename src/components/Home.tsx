@@ -4,9 +4,20 @@ import Terminal from './Terminal';
 function Home() {
     const {isDarkMode, switchMode} = useTheme() || {};
     return (
-        <div className={`h-screen w-full bg-gradient-to-r ${isDarkMode?'from-[#b072c8] to-[#343b9d]':`from-[#110117] to-[#383838]`}`}>
-            <Navbar isDarkMode={isDarkMode} switchMode={switchMode}/>
-            <Terminal/>
+        <div>
+            <div className={`h-screen w-full bg-gradient-to-r ${isDarkMode?'from-[#b072c8] to-[#343b9d]':`from-[#110117] to-[#383838]`}`}>
+                <Navbar isDarkMode={isDarkMode} switchMode={switchMode}/>
+                <Terminal/>
+            </div>
+            <div className={`h-screen flex flex-col bg-gradient-to-r ${isDarkMode?'from-[#b072c8] to-[#343b9d]':`from-[#110117] to-[#383838]`}`}>
+            <div className="flex-1 p-4">
+                
+            </div>
+
+            <footer className="bg-gray-800 text-white text-center p-4">
+                <p>The words above, used for typing, are generated randomly with the help of the <a href="https://www.npmjs.com/package/random-words" className=' underline'>random-words</a> library.</p>
+            </footer>
+            </div>
         </div>
     )
 }

@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { handleKey } from '@/lib/handleKey';
 import { appendClass } from '@/lib/helper';
+import { generateWords } from '@/lib/generateWords';
 function Terminal() {
-    const words:string = "type quick";
+    const words:string = generateWords(10)
     useEffect(() => {
         document.addEventListener('keydown',handleKey);
         return () => {

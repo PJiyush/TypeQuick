@@ -7,6 +7,7 @@ const placeBeforeSpace = (currWord:HTMLElement,incorrectChar:HTMLElement)=>{
 }
 
 export const handleKey = (e:KeyboardEvent)=>{
+    e.preventDefault()
     const key = e.key;
     const isLetter = key.length === 1 && key!== ' ';
     const currWord = document.querySelector('.word.current');
