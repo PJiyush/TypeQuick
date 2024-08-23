@@ -25,6 +25,8 @@ export const handleKey = (e:KeyboardEvent)=>{
             const incorrectChar = document.createElement('span');
             incorrectChar.innerHTML = key;
             appendClass(incorrectChar,'incorrect');
+            appendClass(incorrectChar,'character');
+            appendClass(incorrectChar,'extra');
             placeBeforeSpace(currWord as HTMLElement,incorrectChar);
         }
     }
@@ -69,12 +71,23 @@ export const handleKey = (e:KeyboardEvent)=>{
         }else{
             console.log("current word",currWord);
             const charArray = Array.from(currWord?.childNodes as NodeListOf<HTMLElement>);
+            console.log("charArray",charArray);
             const lastChar = charArray[charArray.length-2];
-            if(lastChar){
+            if(lastChar && !lastChar.classList.contains('extra')){
+                console.log("This runs when there is no current char")
                 removeClass(currChar,'focus');
                 appendClass(lastChar,'focus');
                 removeClass(lastChar,'incorrect');
                 removeClass(lastChar,'correct');
+            }else{
+                console.log("Nice")
+                for(let i = charArray.length-1; i>=0; i--){
+                    const char = charArray[i];
+                    if(char.classList.contains('extra')){
+                        currWord?.removeChild(char);
+                        break;
+                    }
+                }
             }
         }
     }
