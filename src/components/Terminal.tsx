@@ -3,10 +3,12 @@ import { handleKey } from '@/lib/handleKey';
 import { appendClass } from '@/lib/helper';
 import { generateWords } from '@/lib/generateWords';
 import { useTimer } from '@/hooks/useTimer';
+import { useStart } from '@/context/StartContext';
 
 const words:string = generateWords(10)
 function Terminal() {
-    const timer = useTimer();
+    const {isStart,switchMode} = useStart()||{};
+    const timer = useTimer(isStart);
     useEffect(() => {
         document.addEventListener('keydown',handleKey);
         return () => {
@@ -31,6 +33,9 @@ function Terminal() {
             </div>
             <div className='bg-yellow-500 text-white w-10 text-center rounded-md'>
                 {timer}
+            </div>
+            <div onClick={switchMode}>
+                stop
             </div>
         </div>
     );
