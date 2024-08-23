@@ -2,8 +2,11 @@ import { useEffect } from 'react'
 import { handleKey } from '@/lib/handleKey';
 import { appendClass } from '@/lib/helper';
 import { generateWords } from '@/lib/generateWords';
+import { useTimer } from '@/hooks/useTimer';
+
+const words:string = generateWords(10)
 function Terminal() {
-    const words:string = generateWords(10)
+    const timer = useTimer();
     useEffect(() => {
         document.addEventListener('keydown',handleKey);
         return () => {
@@ -25,6 +28,9 @@ function Terminal() {
                         <span className="space"> </span>
                     </span>
                 ))}
+            </div>
+            <div className='bg-yellow-500 text-white w-10 text-center rounded-md'>
+                {timer}
             </div>
         </div>
     );
