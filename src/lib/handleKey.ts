@@ -12,6 +12,7 @@ export const handleKey = (e:KeyboardEvent)=>{
     const isLetter = key.length === 1 && key!== ' ';
     const currWord = document.querySelector('.word.current');
     const currChar = document.querySelector('.character.focus');
+    const currSpace = document.querySelector('.space.focus');
     const isSpace = key === ' ';
     const isBackspace = key === 'Backspace';
     if(isLetter){
@@ -21,6 +22,11 @@ export const handleKey = (e:KeyboardEvent)=>{
             if(currChar.nextSibling){
                 appendClass(currChar.nextSibling as HTMLElement,'focus');
             }
+            console.log("curWord next", currWord?.nextSibling)
+            console.log("curSpace", document.querySelector('.space.focus'))
+            if(!currWord?.nextSibling && document.querySelector('.space.focus')){
+                return true;
+            }
         }else{
             const incorrectChar = document.createElement('span');
             incorrectChar.innerHTML = key;
@@ -29,10 +35,12 @@ export const handleKey = (e:KeyboardEvent)=>{
             appendClass(incorrectChar,'extra');
             placeBeforeSpace(currWord as HTMLElement,incorrectChar);
         }
+
     }
     if(isSpace){
         if(!currChar){
             removeClass(currWord,'current');
+            removeClass(currSpace,'focus');
             const nextWord = currWord?.nextSibling as HTMLElement;
             appendClass(nextWord,'current');
             appendClass(nextWord.firstChild as HTMLElement,'focus');

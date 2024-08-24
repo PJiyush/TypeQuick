@@ -1,16 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { handleKey } from '@/lib/handleKey';
 import { appendClass } from '@/lib/helper';
 import { generateWords } from '@/lib/generateWords';
 import { useTimer } from '@/hooks/useTimer';
 import { useStart } from '@/context/StartContext';
 
-const words:string = generateWords(10)
+const words:string = generateWords(2)
 
 function Terminal() {
     const {isStart,switchMode} = useStart()||{};
-    
     const timer = useTimer(isStart);
+    const [complete, setComplete] = useState(false);
     useEffect(() => {
         const startKey = (e:KeyboardEvent)=>{
             e.preventDefault();
@@ -27,16 +27,22 @@ function Terminal() {
     },[isStart])
     useEffect(() => {
         if(isStart){
-            document.addEventListener('keydown',handleKey);
-            document.addEventListener('visibilitychange',()=>{
-                if(document.hidden && switchMode) switchMode()
-            })
+            document.addEventListener('keydown',(e:KeyboardEvent)=>{
+                const stop = handleKey(e);
+                if(stop){
+                    setComplete(true);
+                    if(switchMode) switchMode()
+                }
+            });
         }
         return () => {
-            document.removeEventListener('keydown',handleKey);
-            document.removeEventListener('visibilitychange',()=>{
-                if(document.hidden && switchMode) switchMode()
-            })
+            document.removeEventListener('keydown',(e:KeyboardEvent)=>{
+                const stop = handleKey(e);
+                if(stop){
+                    setComplete(true);
+                    if(switchMode) switchMode()
+                }
+            });
         }
     },[isStart, switchMode])
     useEffect(() => {
@@ -56,7 +62,7 @@ function Terminal() {
                 ))}
             </div>
             <div className={` mx-8 ${isStart?'hidden':''} -top-96 relative pt-8`} >
-                <p className=' text-5xl text-white'>Press Enter to start</p>
+                <p className=' text-5xl text-white'>{complete?"Test Completed":"Press Enter to start"}</p>
             </div>
             <div className='bg-yellow-500 text-white w-10 text-center rounded-md'>
                 {timer}
