@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { handleKey } from '@/lib/handleKey';
 import { appendClass } from '@/lib/helper';
 import { generateWords } from '@/lib/generateWords';
 import { useTimer } from '@/hooks/useTimer';
 import { useStart } from '@/context/StartContext';
+import {useStorage} from '@/hooks/useStorage'
+import { storeWpmAccuracy } from '@/lib/storeWpmAccuracy';
 
 const words:string = generateWords(2)
 
 function Terminal() {
+    const actTime = useRef(0);
     const {isStart,switchMode} = useStart()||{};
     const timer = useTimer(isStart);
+    actTime.current = timer;
     const [complete, setComplete] = useState(false);
+    const {setItem} = useStorage('TypeQuick')
     useEffect(() => {
         const startKey = (e:KeyboardEvent)=>{
             e.preventDefault();
@@ -31,6 +36,7 @@ function Terminal() {
                 const stop = handleKey(e);
                 if(stop){
                     setComplete(true);
+                    setItem(storeWpmAccuracy(actTime.current).accuracy, storeWpmAccuracy(actTime.current).wpm)
                     if(switchMode) switchMode()
                 }
             });
