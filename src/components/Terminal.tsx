@@ -38,6 +38,9 @@ function Terminal() {
                     setComplete(true);
                     setItem(storeWpmAccuracy(actTime.current).accuracy, storeWpmAccuracy(actTime.current).wpm)
                     if(switchMode) switchMode()
+                    window.scrollTo({
+                        top: 800,
+                        behavior: 'smooth'})
                 }
             });
         }

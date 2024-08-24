@@ -1,6 +1,7 @@
 import Navbar from './Navbar'
 import { useTheme } from '@/context/ThemeContext'
 import Terminal from './Terminal';
+import { ProgressChart } from './ProgressChart';
 function Home() {
     const {isDarkMode, switchMode} = useTheme() || {};
     return (
@@ -10,8 +11,11 @@ function Home() {
                 <Terminal/>
             </div>
             <div className={`h-screen flex flex-col bg-gradient-to-r ${isDarkMode?'from-[#b072c8] to-[#343b9d]':`from-[#110117] to-[#383838]`}`}>
-            <div className="flex-1 p-4">
-                
+            <div className="flex-1 p-4 bg-slate-500">
+                <div className='flex justify-center text-4xl underline text-white'>My Progress</div>
+                <div className=''>
+                    <ProgressChart/>
+                </div>
             </div>
 
             <footer className="bg-gray-800 text-white text-center p-4">
