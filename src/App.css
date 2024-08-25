@@ -7,6 +7,7 @@
 }
 
 .focus{
-    font-weight: bolder;
-    color: white;
+    font-weight: 900;
+    opacity: 1;
+    color: rgb(0, 215, 226);
 }

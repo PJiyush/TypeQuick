@@ -6,8 +6,10 @@ import { useTimer } from '@/hooks/useTimer';
 import { useStart } from '@/context/StartContext';
 import { storeWpmAccuracy } from '@/lib/storeWpmAccuracy';
 import { useStore } from '@/context/StorageContext';
-
-const words:string = generateWords(2)
+import { TiMediaPauseOutline } from "react-icons/ti";
+import { MdOutlineRestartAlt } from "react-icons/md";
+import { useTheme } from '@/context/ThemeContext';
+const words:string = generateWords(20)
 
 function Terminal() {
     const actTime = useRef(0);
@@ -16,6 +18,7 @@ function Terminal() {
     actTime.current = timer;
     const [complete, setComplete] = useState(false);
     const {setItem} = useStore()||{};
+    const {isDarkMode} = useTheme()||{};
     useEffect(() => {
         const startKey = (e:KeyboardEvent)=>{
             e.preventDefault();
@@ -59,10 +62,10 @@ function Terminal() {
         appendClass( document.querySelector('.character'), 'focus');
     },[])
     return (
-        <div className='terminal h-3/4 w-5/6 mx-auto my-10 rounded-3xl bg-white/20 shadow-lg shadow-black/10'>
-            <div className={`h-96 mx-8 pt-8 ${isStart?"":'blur-lg'}`} id='words'>
+        <div className={`terminal h-3/4 w-5/6 mx-auto my-10 rounded-3xl  ${!isDarkMode? "bg-white/80":"bg-white/5"} `}>
+            <div className={`h-96 mx-8 pt-8 ${isStart?"":'blur-lg'} ${!isDarkMode? "text-lightThemeSecondary":"text-nightThemeSecondary"} opacity-70`} id='words'>
                 {words.split(' ').map((word:string, index:number) => (
-                    <span key={index} className="text-5xl font-mono word">
+                    <span key={index} className="lg:text-5xl text-lg font-mono word">
                         {word.split("").map((char, index) => (
                             <span key={index} className='character'>{char}</span>
                         ))}
@@ -71,14 +74,20 @@ function Terminal() {
                 ))}
             </div>
             <div className={` mx-8 ${isStart?'hidden':''} -top-96 relative pt-8`} >
-                <p className=' text-5xl text-white'>{complete?"Test Completed":"Press Enter to start"}</p>
+                <p className={` text-5xl ${!isDarkMode? "text-lightThemeSecondary":"text-nightThemeSecondary"} flex justify-center mt-4`}>{complete?"Test Completed":"Press Enter to start"}</p>
             </div>
-            <div className='bg-yellow-500 text-white w-10 text-center rounded-md'>
-                {timer}
+            <div className={` w-full h-20 flex justify-center relative ${isStart?"-top-[40px]":"hidden"} `}>
+                <div className={` w-20 text-5xl mr-2 flex justify-center opacity-50 font-extrabold ${!isDarkMode?'text-lightThemeSecondary':'text-nightThemeSecondary'} `}>{timer}</div>
             </div>
-            <div onClick={switchMode} className='bg-red-600 w-52'>
-                stop
+            <div className={`w-full h-12 relative ${isStart?"-top-[40px]":"hidden"} flex justify-center`}>
+                <div className='w-24  flex items-center'>
+                    <TiMediaPauseOutline className={` ${!isDarkMode? "text-lightThemeSecondary":"text-nightThemeSecondary"} text-5xl font-semibold cursor-pointer opacity-50 hover:opacity-100`} onClick={switchMode}/>
+                    <MdOutlineRestartAlt className={` ${!isDarkMode? "text-lightThemeSecondary":"text-nightThemeSecondary"} text-4xl font-semibold cursor-pointer opacity-50 hover:opacity-100`} onClick={()=>{
+                        window.location.reload()
+                    }}/>
+                </div>
             </div>
+            
         </div>
     );
 }

@@ -9,7 +9,7 @@ function Navbar({isDarkMode, switchMode}:ThemeContextType) {
             <div className="flex justify-between items-center h-20 lg:px-40 px-10 md:px-12 ">
                 <div className="mt-4 flex justify-center items-center lg:items-end lg:gap-5 gap-3 ">
                     <p className={` ${!isDarkMode?"text-lightThemeSecondary":" text-nightThemeSecondary"} text-3xl lg:text-5xl`}>Type<span className=" font-bold ">Q</span><span className="underline underline-offset-2">uic</span><span className=" font-bold underline">k</span>...</p>
-                    <div className="flex gap-2 mx-2 ">
+                    <div className="md:flex gap-2 mx-2 hidden  ">
                         <ImStatsDots className={`text-lg lg:text-2xl ${!isDarkMode?"text-[#0b1017]":"text-nightThemeSecondary"} cursor-pointer opacity-50 hover:opacity-100`} onClick={()=>{
                             window.scrollTo({
                                 top: 800,
