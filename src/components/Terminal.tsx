@@ -9,7 +9,7 @@ import { useStore } from '@/context/StorageContext';
 import { TiMediaPauseOutline } from "react-icons/ti";
 import { MdOutlineRestartAlt } from "react-icons/md";
 import { useTheme } from '@/context/ThemeContext';
-const words:string = generateWords(20)
+const words:string = generateWords(12)
 
 function Terminal() {
     const actTime = useRef(0);

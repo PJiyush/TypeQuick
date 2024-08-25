@@ -6,21 +6,20 @@ function Home() {
     const {isDarkMode, switchMode} = useTheme() || {};
     return (
         <div className='overflow-x-clip'>
-            <div className={`h-screen w-screen bg-gradient-to-r ${isDarkMode?'bg-[#0f090f]':` bg-lightThemePrimary`}`}>
+            <div className={`h-screen w-screen bg-gradient-to-r ${isDarkMode?' bg-nightThemePrimary':` bg-lightThemePrimary`}`}>
                 <Navbar isDarkMode={isDarkMode} switchMode={switchMode}/>
                 <Terminal/>
             </div>
-            <div className={`h-screen flex flex-col bg-gradient-to-r ${isDarkMode?'from-[#b072c8] to-[#343b9d]':`from-[#110117] to-[#383838]`}`}>
-            <div className="flex-1 p-4 bg-slate-500">
-                <div className='flex justify-center text-4xl underline text-white'>My Progress</div>
-                <div className=''>
-                    <ProgressChart/>
+            <div className={`lg:h-screen h-2/3 flex flex-col ${!isDarkMode?' bg-lightThemePrimary':`bg-nightThemePrimary`}`}>
+                <div className="flex-1 p-4">
+                    <div className=' flex  justify-center'>
+                        <ProgressChart/>
+                    </div>
                 </div>
-            </div>
 
-            <footer className="bg-gray-800 text-white text-center p-4">
-                <p>The words above, used for typing, are generated randomly with the help of the <a href="https://www.npmjs.com/package/random-words" className=' underline'>random-words</a> library.</p>
-            </footer>
+                <footer className="bg-gray-800 text-white text-center p-4">
+                    <p>The words above, used for typing, are generated randomly with the help of the <a href="https://www.npmjs.com/package/random-words" className=' underline'>random-words</a> library.</p>
+                </footer>
             </div>
         </div>
     )

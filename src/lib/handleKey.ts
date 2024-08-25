@@ -22,8 +22,6 @@ export const handleKey = (e:KeyboardEvent)=>{
             if(currChar.nextSibling){
                 appendClass(currChar.nextSibling as HTMLElement,'focus');
             }
-            console.log("curWord next", currWord?.nextSibling)
-            console.log("curSpace", document.querySelector('.space.focus'))
             if(!currWord?.nextSibling && document.querySelector('.space.focus')){
                 return true;
             }
@@ -77,18 +75,17 @@ export const handleKey = (e:KeyboardEvent)=>{
                 removeClass(lastChar,'correct');
             }
         }else{
-            console.log("current word",currWord);
+            
             const charArray = Array.from(currWord?.childNodes as NodeListOf<HTMLElement>);
-            console.log("charArray",charArray);
             const lastChar = charArray[charArray.length-2];
             if(lastChar && !lastChar.classList.contains('extra')){
-                console.log("This runs when there is no current char")
+                
                 removeClass(currChar,'focus');
                 appendClass(lastChar,'focus');
                 removeClass(lastChar,'incorrect');
                 removeClass(lastChar,'correct');
             }else{
-                console.log("Nice")
+                
                 for(let i = charArray.length-1; i>=0; i--){
                     const char = charArray[i];
                     if(char.classList.contains('extra')){

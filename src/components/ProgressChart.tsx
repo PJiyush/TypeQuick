@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/chart";
 
 import { useStore } from "@/context/StorageContext";
-
+import { useTheme } from "@/context/ThemeContext";
 
 const chartConfig = {
     accuracy: {
@@ -31,7 +31,7 @@ const chartConfig = {
 
 export function ProgressChart() {
     const {items} = useStore()||{};
-    console.log(items);
+    const {isDarkMode} = useTheme()||{};
     const itemData = items?.map((item)=>{
         return {
             time: item.date,
@@ -39,11 +39,17 @@ export function ProgressChart() {
             wpm: item.wpm
         }
     })
-    console.log(itemData)
+    if(itemData && itemData.length===0){
+        itemData?.push({
+            time: new Date().toISOString(),
+            accuracy: 0,
+            wpm: 0
+        })
+    }
     return (
-        <Card>
+        <Card className={`w-2/3 h-auto ${isDarkMode?' bg-neutral-900':''} `}>
             <CardHeader>
-                <CardTitle>My Progress</CardTitle>
+                <CardTitle className={`w-2/3 h-auto ${isDarkMode?' text-nightThemeSecondary':''} `}>My Progress</CardTitle>
                 <CardDescription>{itemData && itemData.length>0 && `from ${itemData.length>0 &&  itemData[0].time.slice(0,9)} to ${ itemData.length>0 && itemData[itemData.length-1].time.slice(0,9)}`}</CardDescription>
             </CardHeader>
             <CardContent>
