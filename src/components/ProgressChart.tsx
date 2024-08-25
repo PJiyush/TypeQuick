@@ -1,4 +1,3 @@
-import { TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 
 import {
@@ -15,7 +14,8 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useStorage } from "@/hooks/useStorage";
+
+import { useStore } from "@/context/StorageContext";
 
 
 const chartConfig = {
@@ -30,22 +30,21 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ProgressChart() {
-    const {items} = useStorage('TypeQuick');
+    const {items} = useStore()||{};
     console.log(items);
-    const itemData = items.map((item)=>{
+    const itemData = items?.map((item)=>{
         return {
             time: item.date,
             accuracy: item.accuracy,
             wpm: item.wpm
         }
-    }
-    )
-    console.log(itemData);
+    })
+    console.log(itemData)
     return (
         <Card>
             <CardHeader>
                 <CardTitle>My Progress</CardTitle>
-                <CardDescription>from {itemData[0].time.slice(0,9)} to {itemData[itemData.length-1].time.slice(0,9)}</CardDescription>
+                <CardDescription>{itemData && itemData.length>0 && `from ${itemData.length>0 &&  itemData[0].time.slice(0,9)} to ${ itemData.length>0 && itemData[itemData.length-1].time.slice(0,9)}`}</CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
@@ -89,7 +88,7 @@ export function ProgressChart() {
                     <div className="grid gap-2">
                         
                         <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                            considering {itemData.length} records
+                            considering {itemData?.length} records
                         </div>
                     </div>
                 </div>

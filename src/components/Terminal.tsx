@@ -4,8 +4,8 @@ import { appendClass } from '@/lib/helper';
 import { generateWords } from '@/lib/generateWords';
 import { useTimer } from '@/hooks/useTimer';
 import { useStart } from '@/context/StartContext';
-import {useStorage} from '@/hooks/useStorage'
 import { storeWpmAccuracy } from '@/lib/storeWpmAccuracy';
+import { useStore } from '@/context/StorageContext';
 
 const words:string = generateWords(2)
 
@@ -15,7 +15,7 @@ function Terminal() {
     const timer = useTimer(isStart);
     actTime.current = timer;
     const [complete, setComplete] = useState(false);
-    const {setItem} = useStorage('TypeQuick')
+    const {setItem} = useStore()||{};
     useEffect(() => {
         const startKey = (e:KeyboardEvent)=>{
             e.preventDefault();
