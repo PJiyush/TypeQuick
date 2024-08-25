@@ -17,7 +17,7 @@ function Terminal() {
     const timer = useTimer(isStart);
     actTime.current = timer;
     const [complete, setComplete] = useState(false);
-    const {setItem} = useStore()||{};
+    const {setItem} = useStore() || { setItem: () => {} };
     const {isDarkMode} = useTheme()||{};
     useEffect(() => {
         const startKey = (e:KeyboardEvent)=>{
