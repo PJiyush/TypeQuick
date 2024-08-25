@@ -20,6 +20,10 @@ module.exports = {
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
+        lightThemePrimary:"#fafbde",
+        lightThemeSecondary:"#0b1017",
+        nightThemePrimary:"#0b1017",
+        nightThemeSecondary:"#fbad38",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
