@@ -11,10 +11,10 @@ TypeQuick is a simple yet effective typing practice application built using Reac
 
 ## Screenshots
 ### Typing Interface
-![Typing Interface](./public/images/typing.png)
+![Typing Interface](./public/typing.png)
 
 ### Progress Tracking
-![Progress Tracking](./public/images/progress.png)
+![Progress Tracking](./public/progress.png)
 
 ### Technologies used
 - React.js
